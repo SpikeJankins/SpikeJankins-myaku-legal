@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Myaku 脈 · Internal discovery for Japan's largest companies</title>
+<meta name="description" content="Myaku is the internal discovery layer for large Japanese corporations. Employees find colleagues, take a seat at company tables, join innovation challenges and earn Myaku Score.">
+<meta property="og:title" content="Myaku 脈 · The pulse inside your company">
+<meta property="og:description" content="Internal discovery infrastructure for Japan's largest corporations. Discover · Rooms · Challenges · Score.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="apple-touch-icon.png">
+<meta name="theme-color" content="#0B1C32">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0B1C32;
+    --navy-2: #081426;
+    --navy-3: #12253F;
+    --line: rgba(255,255,255,0.08);
+    --cream: #FAF7F2;
+    --ink: #0B1C32;
+    --muted: #6B7280;
+    --muted-d: #9AA6B8;
+    --red: #E60012;
+    --red-2: #FF3B30;
+    --red-dim: #FDE4E5;
+    --amber: #FFA51F;
+    --amber-dim: #FFEBD1;
+    --radius: 22px;
+    --shadow: 0 10px 30px rgba(11,28,50,0.08);
+    --shadow-lg: 0 30px 80px rgba(0,0,0,0.35);
+    --font: "Plus Jakarta Sans", "Noto Sans JP", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; scroll-padding-top: 80px; -webkit-text-size-adjust: 100%; }
+  body { font-family: var(--font); background: var(--cream); color: var(--ink); line-height: 1.6; overflow-x: hidden; }
+  html[data-lang="ja"] body { font-family: "Noto Sans JP", "Plus Jakarta Sans", sans-serif; }
+  img { max-width: 100%; display: block; }
+  a { color: inherit; text-decoration: none; }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
+  @media (max-width: 520px) { .wrap { padding: 0 16px; } }
+
+  /* Bilingual: every text exists as .en and .ja */
+  html[data-lang="en"] .ja, html[data-lang="ja"] .en { display: none !important; }
+
+  /* NAV */
+  .nav { position: fixed; inset: 0 0 auto 0; z-index: 50; transition: background .25s, border-color .25s; border-bottom: 1px solid transparent; }
+  .nav.scrolled { background: rgba(8,20,38,0.86); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-color: var(--line); }
+  .nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 72px; gap: 20px; }
+  .logo { display: flex; align-items: center; gap: 10px; color: #fff; font-weight: 800; font-size: 24px; letter-spacing: -0.5px; }
+  .logo img { width: 34px; height: auto; }
+  .nav-links { display: flex; gap: 28px; font-size: 14px; font-weight: 600; color: rgba(255,255,255,0.72); }
+  .nav-links a:hover { color: #fff; }
+  .nav-right { display: flex; align-items: center; gap: 10px; }
+  .lang { display: flex; background: rgba(255,255,255,0.08); border-radius: 100px; padding: 3px; }
+  .lang button { border: 0; background: transparent; color: rgba(255,255,255,0.6); font: 700 12px var(--font); padding: 6px 11px; border-radius: 100px; cursor: pointer; }
+  .lang button.on { background: #fff; color: var(--navy); }
+  .btn { display: inline-flex; align-items: center; gap: 8px; font-weight: 800; font-size: 15px; border-radius: 100px; padding: 14px 24px; transition: transform .15s, background .15s, border-color .15s; white-space: nowrap; }
+  .btn:hover { transform: translateY(-1px); }
+  .btn-red { background: var(--red); color: #fff; box-shadow: 0 10px 30px rgba(230,0,18,0.35); }
+  .btn-red:hover { background: #F2101F; }
+  .btn-ghost { color: #fff; border: 1.5px solid rgba(255,255,255,0.25); }
+  .btn-ghost:hover { border-color: #fff; }
+  .btn-sm { padding: 10px 18px; font-size: 13.5px; }
+  @media (max-width: 940px) { .nav-links { display: none; } }
+  @media (max-width: 520px) { .nav .btn-sm { display: none; } }
+
+  /* HERO */
+  .hero { position: relative; background: radial-gradient(1200px 600px at 75% 30%, #13305A 0%, var(--navy) 45%, var(--navy-2) 100%); color: #fff; padding: 140px 0 80px; overflow: hidden; }
+  .hero::before { content: ""; position: absolute; inset: 0; background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px); background-size: 64px 64px; mask-image: radial-gradient(ellipse at 60% 40%, #000 30%, transparent 75%); -webkit-mask-image: radial-gradient(ellipse at 60% 40%, #000 30%, transparent 75%); pointer-events: none; }
+  .hero-kanji { position: absolute; right: -40px; top: 40px; font-family: "Noto Sans JP", sans-serif; font-weight: 900; font-size: 560px; line-height: 1; color: rgba(255,255,255,0.035); pointer-events: none; user-select: none; }
+  .hero .wrap { position: relative; display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 56px; align-items: center; }
+  .eyebrow { display: inline-flex; align-items: center; gap: 10px; font-size: 12px; font-weight: 800; letter-spacing: 2.4px; text-transform: uppercase; color: var(--amber); }
+  html[data-lang="ja"] .eyebrow { letter-spacing: 1.5px; }
+  .eyebrow .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--red-2); animation: pulse 2s infinite; }
+  @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(255,59,48,0.55); } 70% { box-shadow: 0 0 0 12px rgba(255,59,48,0); } 100% { box-shadow: 0 0 0 0 rgba(255,59,48,0); } }
+  .hero h1 { font-size: clamp(42px, 6vw, 76px); line-height: 1.02; letter-spacing: -2px; font-weight: 800; margin: 20px 0 22px; }
+  html[data-lang="ja"] .hero h1 { letter-spacing: -1px; line-height: 1.18; font-size: clamp(36px, 5vw, 62px); }
+  .hero h1 em { font-style: normal; background: linear-gradient(100deg, var(--red-2) 10%, var(--amber) 90%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .hero p.lead { font-size: 19px; color: rgba(255,255,255,0.74); max-width: 560px; }
+  .hero-ctas { display: flex; gap: 12px; margin-top: 32px; flex-wrap: wrap; }
+  .stats { display: flex; gap: 40px; margin-top: 48px; flex-wrap: wrap; }
+  .stat b { display: block; font-size: 34px; font-weight: 800; letter-spacing: -1px; color: #fff; }
+  .stat span { font-size: 13px; color: var(--muted-d); }
+  @media (max-width: 940px) {
+    .hero .wrap { grid-template-columns: 1fr; }
+    .hero-kanji { font-size: 340px; right: -60px; top: 80px; }
+  }
+
+  /* PHONE MOCK */
+  .phone { width: 300px; max-width: 100%; height: 620px; border-radius: 46px; background: #05101F; padding: 12px; box-shadow: var(--shadow-lg), inset 0 0 0 1.5px rgba(255,255,255,0.12); position: relative; margin: 0 auto; }
+  .phone::before { content: ""; position: absolute; top: 20px; left: 50%; transform: translateX(-50%); width: 92px; height: 26px; background: #000; border-radius: 20px; z-index: 3; }
+  .screen { width: 100%; height: 100%; border-radius: 36px; background: var(--cream); overflow: hidden; position: relative; color: var(--ink); font-size: 12px; }
+  .scr-top { padding: 52px 16px 8px; display: flex; justify-content: space-between; align-items: center; }
+  .scr-title { font-weight: 800; font-size: 22px; letter-spacing: -0.5px; }
+  .seg { display: flex; background: #fff; border-radius: 100px; padding: 2px; box-shadow: 0 2px 6px rgba(0,0,0,0.06); }
+  .seg i { font-style: normal; font-size: 10px; font-weight: 800; padding: 4px 9px; border-radius: 100px; color: var(--muted); }
+  .seg i.on { background: var(--navy); color: #fff; }
+  .chips { display: flex; gap: 6px; flex-wrap: wrap; }
+  .chip { background: #fff; border: 1px solid rgba(11,28,50,0.08); border-radius: 100px; padding: 4px 9px; font-size: 10.5px; font-weight: 700; white-space: nowrap; }
+  .chip.dark { background: var(--navy); color: #fff; border-color: var(--navy); }
+  .chip.red { background: var(--red); color: #fff; border-color: var(--red); }
+  .chip.amber { background: var(--amber-dim); border-color: transparent; }
+  .av { width: 26px; height: 26px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; color: #fff; font-weight: 800; font-size: 10px; border: 2px solid #fff; flex: none; }
+  .a1 { background: #E60012; } .a2 { background: #FF8A00; } .a3 { background: #0B1C32; } .a4 { background: #C2185B; } .a5 { background: #6D4C41; } .a6 { background: #F5A300; }
+  .deck { position: absolute; left: 14px; right: 14px; top: 128px; bottom: 132px; }
+  .card-behind { position: absolute; inset: 14px 10px -8px; background: #fff; border-radius: 26px; opacity: 0.6; }
+  .pcard { position: absolute; inset: 0; background: #fff; border-radius: 26px; overflow: hidden; box-shadow: 0 18px 40px rgba(11,28,50,0.16); transform: rotate(-3deg); }
+  .pcard-head { background: var(--red-dim); text-align: center; padding: 18px 12px 12px; }
+  .pcard-head .big { display: flex; width: 70px; height: 70px; font-size: 22px; line-height: 1; border: 3px solid var(--red); margin: 0 auto; position: relative; z-index: 1; }
+  .pcard-head h4 { font-size: 17px; font-weight: 800; margin-top: 8px; }
+  .pcard-head p { font-size: 11px; font-weight: 600; color: #333; }
+  .pcard-body { padding: 10px 14px; }
+  .lbl { font-size: 8.5px; font-weight: 800; letter-spacing: 1.2px; color: var(--muted); margin: 8px 0 5px; }
+  .stamp { position: absolute; top: 16px; left: 14px; background: var(--red); color: #fff; font-weight: 900; font-size: 11px; letter-spacing: 1px; padding: 5px 10px; border-radius: 100px; transform: rotate(-10deg); z-index: 2; }
+  .acts { position: absolute; bottom: 72px; left: 0; right: 0; display: flex; justify-content: center; align-items: center; gap: 16px; }
+  .act { width: 44px; height: 44px; border-radius: 50%; background: #fff; display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 14px rgba(0,0,0,0.1); font-size: 16px; }
+  .act.yes { width: 54px; height: 54px; background: var(--red); color: #fff; font-weight: 900; font-size: 18px; box-shadow: 0 10px 20px rgba(230,0,18,0.35); }
+  .tabbar { z-index: 4; position: absolute; left: 0; right: 0; bottom: 0; height: 60px; background: #fff; display: flex; justify-content: space-around; align-items: center; border-top: 1px solid rgba(11,28,50,0.06); }
+  .tabbar span { font-size: 9px; font-weight: 700; color: var(--muted); text-align: center; }
+  .tabbar span b { display: block; margin: 0 auto 3px; width: 34px; height: 20px; border-radius: 10px; }
+  .tabbar span.on { color: var(--ink); }
+  .tabbar span.on b { background: var(--red); }
+
+  /* TICKER */
+  .ticker { background: var(--red); color: #fff; overflow: hidden; white-space: nowrap; padding: 16px 0; font-weight: 800; letter-spacing: 2px; font-size: 13px; }
+  .ticker-track { display: inline-block; animation: marquee 36s linear infinite; }
+  .ticker-track span { margin: 0 22px; }
+  .ticker-track span.k { font-family: "Noto Sans JP", sans-serif; opacity: 0.85; }
+  @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  /* SECTIONS */
+  section { padding: 110px 0; position: relative; }
+  @media (max-width: 600px) { section { padding: 80px 0; } }
+  .dark { background: var(--navy); color: #fff; }
+  .darker { background: var(--navy-2); color: #fff; }
+  .cream { background: var(--cream); }
+  .white { background: #fff; }
+  h2 { font-size: clamp(34px, 4.4vw, 56px); line-height: 1.05; letter-spacing: -1.5px; font-weight: 800; margin: 16px 0 20px; }
+  html[data-lang="ja"] h2 { letter-spacing: -0.5px; line-height: 1.25; font-size: clamp(30px, 3.8vw, 48px); }
+  h2 em { font-style: normal; color: var(--red); }
+  .dark h2 em, .darker h2 em { color: var(--amber); }
+  .sub { font-size: 18px; color: var(--muted); max-width: 640px; }
+  .dark .sub, .darker .sub { color: var(--muted-d); }
+  .cream .eyebrow, .white .eyebrow { color: var(--red); }
+
+  .grid4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-top: 56px; }
+  .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 56px; }
+  .grid2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; margin-top: 56px; }
+  @media (max-width: 1000px) { .grid4 { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 760px) { .grid4, .grid3, .grid2 { grid-template-columns: 1fr; } }
+
+  .card { background: #fff; border-radius: var(--radius); padding: 28px; box-shadow: var(--shadow); }
+  .dark .card, .darker .card { background: var(--navy-3); box-shadow: none; border: 1px solid var(--line); }
+  .card .ico { font-size: 30px; margin-bottom: 16px; display: block; }
+  .card h3 { font-size: 19px; font-weight: 800; letter-spacing: -0.3px; margin-bottom: 8px; }
+  .dark .card h3, .darker .card h3 { color: var(--amber); }
+  .card p { font-size: 15px; color: var(--muted); }
+  .dark .card p, .darker .card p { color: var(--muted-d); }
+  .card .num { font-size: 12px; font-weight: 800; letter-spacing: 1.5px; color: var(--red); }
+  .card .jp { font-family: "Noto Sans JP", sans-serif; font-size: 13px; color: var(--muted); margin-bottom: 10px; display: block; }
+
+  .split > *, .grid4 > *, .grid3 > *, .grid2 > *, .hero .wrap > *, .mocks2 > * { min-width: 0; }
+  .person b { display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  @media (max-width: 420px) { .person .chip { display: none; } }
+  .split { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; }
+  .split.rev > :first-child { order: 2; }
+  @media (max-width: 940px) { .split { grid-template-columns: 1fr; gap: 48px; } .split.rev > :first-child { order: 0; } }
+  .feat { display: flex; gap: 16px; margin-top: 26px; }
+  .feat .fi { flex: none; width: 46px; height: 46px; border-radius: 14px; background: var(--red-dim); display: flex; align-items: center; justify-content: center; font-size: 21px; }
+  .feat h4 { font-size: 17px; font-weight: 800; margin-bottom: 3px; }
+  .feat p { font-size: 15px; color: var(--muted); }
+
+  /* list + table mocks */
+  .panel { background: #fff; border-radius: 28px; padding: 28px; box-shadow: var(--shadow); max-width: 520px; margin: 0 auto; }
+  @media (max-width: 520px) { .panel { padding: 20px; } }
+  .person { display: flex; gap: 12px; align-items: center; background: var(--cream); border-radius: 16px; padding: 12px; }
+  .person .av { width: 42px; height: 42px; font-size: 13px; }
+  .person div { flex: 1; min-width: 0; }
+  .person small { display: block; font-size: 12.5px; color: var(--muted); font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .tbl-head { display: flex; align-items: center; gap: 12px; }
+  .tbl-head .em { font-size: 28px; }
+  .tbl-head h4 { font-size: 18px; font-weight: 800; }
+  .tbl-head small { display: block; font-size: 12.5px; color: var(--muted); font-weight: 600; }
+  .goal { background: var(--amber-dim); border-radius: 14px; padding: 12px 14px; margin: 16px 0 6px; font-weight: 700; font-size: 14.5px; }
+  .table-stage { position: relative; height: 270px; margin: 14px 0; }
+  .table-top { position: absolute; left: 18%; right: 18%; top: 22%; bottom: 22%; border-radius: 50%; background: var(--amber-dim); display: flex; align-items: center; justify-content: center; flex-direction: column; box-shadow: inset 0 -6px 0 rgba(0,0,0,0.04), 0 8px 24px rgba(255,165,31,0.18); }
+  .table-top span { font-size: 30px; }
+  .table-top small { font-size: 12px; color: var(--muted); font-weight: 600; }
+  .seat { position: absolute; width: 50px; height: 50px; margin: -25px 0 0 -25px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 14px; color: #fff; border: 3px solid #fff; box-shadow: 0 6px 14px rgba(11,28,50,0.15); }
+  .seat.empty { background: #fff; border: 2px dashed #C9CDD6; color: #B8BCC5; box-shadow: none; font-size: 20px; font-weight: 500; }
+  .seat.host { border-color: var(--red); }
+  .tbl-foot { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+  .tbl-foot b { color: var(--red); font-size: 14px; }
+
+  /* challenge + score mocks */
+  .mocks2 { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  @media (max-width: 600px) { .mocks2 { grid-template-columns: 1fr; } }
+  .mock { background: #fff; border-radius: 24px; padding: 22px; box-shadow: var(--shadow); border: 1.5px solid var(--red-dim); }
+  .mock .t { font-weight: 800; font-size: 17px; letter-spacing: -0.2px; margin-top: 10px; }
+  .mock .m { font-size: 12.5px; color: var(--muted); font-weight: 600; margin-top: 3px; }
+  .prize { background: var(--amber-dim); border-radius: 14px; padding: 12px; margin-top: 14px; }
+  .prize small, .score small { font-size: 9.5px; font-weight: 800; letter-spacing: 1.2px; color: var(--muted); }
+  .prize b { display: block; font-size: 22px; font-weight: 800; letter-spacing: -0.5px; }
+  .teamrow { display: flex; align-items: center; justify-content: space-between; margin-top: 14px; font-size: 12.5px; font-weight: 700; color: var(--muted); gap: 8px; }
+  .stack { display: flex; }
+  .stack .av { margin-left: -8px; } .stack .av:first-child { margin-left: 0; }
+  .score { background: var(--navy); color: #fff; border-radius: 24px; padding: 22px; box-shadow: var(--shadow); }
+  .score small { color: var(--muted-d); }
+  .score .pts { font-size: 56px; font-weight: 800; letter-spacing: -2px; line-height: 1.05; }
+  .score .pts i { font-style: normal; font-size: 18px; color: var(--amber); letter-spacing: 0; }
+  .score .rk { font-size: 13px; color: var(--muted-d); font-weight: 600; }
+  .bonus { background: rgba(255,255,255,0.07); border-radius: 14px; padding: 12px; margin-top: 14px; }
+  .bonus b { color: var(--amber); font-size: 22px; display: block; }
+  .bar { height: 6px; background: rgba(255,255,255,0.1); border-radius: 3px; margin-top: 8px; overflow: hidden; }
+  .bar i { display: block; height: 100%; background: linear-gradient(90deg, var(--red-2), var(--amber)); border-radius: 3px; }
+  .brk { margin-top: 14px; font-size: 12.5px; color: var(--muted-d); line-height: 1.9; }
+  .brk div { display: flex; justify-content: space-between; gap: 8px; }
+  .brk b { color: #fff; }
+  .note { margin-top: 26px; background: var(--amber-dim); border-radius: 18px; padding: 18px 20px; }
+  .note b { color: #A35A00; display: block; margin-bottom: 4px; }
+
+  /* value band */
+  .value { background: linear-gradient(135deg, var(--red) 0%, #B8000E 100%); color: #fff; }
+  .value .eyebrow { color: rgba(255,255,255,0.75); }
+  .value h2 em { color: #fff; opacity: 0.75; }
+  .vbox { background: rgba(0,0,0,0.14); border-radius: var(--radius); padding: 30px; }
+  .vbox h3 { font-size: 13px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 16px; opacity: 0.8; }
+  .vbox li { list-style: none; position: relative; padding-left: 26px; margin: 12px 0; font-size: 16px; font-weight: 600; }
+  .vbox li::before { content: "脈"; position: absolute; left: 0; top: 1px; font-family: "Noto Sans JP", sans-serif; font-size: 13px; opacity: 0.6; }
+
+  /* pilot */
+  .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 50px; counter-reset: s; }
+  @media (max-width: 900px) { .steps { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 520px) { .steps { grid-template-columns: 1fr; } }
+  .step { background: #fff; border-radius: 20px; padding: 24px; box-shadow: var(--shadow); }
+  .step::before { counter-increment: s; content: "0" counter(s); font-size: 12px; font-weight: 800; letter-spacing: 1.5px; color: var(--red); }
+  .step h4 { font-size: 18px; font-weight: 800; margin: 8px 0 6px; }
+  .step p { font-size: 14.5px; color: var(--muted); }
+  .price { display: flex; flex-wrap: wrap; gap: 18px; margin-top: 18px; }
+  .price-card { flex: 1 1 280px; background: var(--navy); color: #fff; border-radius: var(--radius); padding: 30px; }
+  .price-card > span { color: var(--muted-d); font-size: 14px; font-weight: 700; letter-spacing: 0.5px; }
+  .price-card b { font-size: 46px; font-weight: 800; letter-spacing: -1.5px; display: block; margin-top: 4px; }
+  .price-card b small { font-size: 18px; font-weight: 700; letter-spacing: 0; }
+  .price-card.alt { background: #fff; color: var(--ink); box-shadow: var(--shadow); }
+  .price-card.alt > span { color: var(--muted); }
+  .price-card ul { margin-top: 14px; }
+  .price-card li { list-style: none; font-size: 14.5px; margin: 6px 0; padding-left: 22px; position: relative; }
+  .price-card li::before { content: "✓"; position: absolute; left: 0; color: var(--amber); font-weight: 800; }
+  .price-card.alt li::before { color: var(--red); }
+
+  /* HR dashboard mock */
+  .dash { background: #fff; border-radius: 20px; box-shadow: var(--shadow-lg); overflow: hidden; color: var(--ink); }
+  .dash-bar { display: flex; align-items: center; gap: 7px; padding: 12px 16px; background: #F1EEE8; border-bottom: 1px solid rgba(11,28,50,0.06); }
+  .dash-bar i { width: 10px; height: 10px; border-radius: 50%; background: #D5D0C7; display: block; }
+  .dash-bar span { margin-left: 10px; font-size: 12px; font-weight: 700; color: var(--muted); }
+  .dash-body { display: grid; grid-template-columns: 150px 1fr; min-height: 420px; }
+  .dash-side { background: var(--navy); color: rgba(255,255,255,0.6); padding: 18px 14px; font-size: 12.5px; font-weight: 700; }
+  .dash-side .logo { font-size: 17px; margin-bottom: 22px; }
+  .dash-side .logo img { width: 22px; }
+  .dash-side div { padding: 8px 10px; border-radius: 10px; margin-bottom: 4px; }
+  .dash-side div.on { background: rgba(255,255,255,0.1); color: #fff; }
+  .dash-main { padding: 18px; display: grid; gap: 14px; }
+  .kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+  .kpi { background: var(--cream); border-radius: 14px; padding: 12px; }
+  .kpi small { display: block; font-size: 10px; font-weight: 800; letter-spacing: 1px; color: var(--muted); text-transform: uppercase; }
+  .kpi b { display: block; font-size: 22px; font-weight: 800; letter-spacing: -0.5px; margin-top: 2px; }
+  .kpi em { font-style: normal; font-size: 11px; font-weight: 800; color: var(--red); }
+  .dash-row { display: grid; grid-template-columns: 1.1fr 1fr; gap: 14px; }
+  .dpanel { background: var(--cream); border-radius: 14px; padding: 14px; }
+  .dpanel h5 { font-size: 11px; font-weight: 800; letter-spacing: 1px; color: var(--muted); text-transform: uppercase; margin-bottom: 10px; }
+  .heat { display: grid; grid-template-columns: 52px repeat(6, 1fr); gap: 3px; font-size: 9.5px; font-weight: 700; color: var(--muted); align-items: center; }
+  .heat .c { height: 24px; border-radius: 4px; }
+  .heat .h { text-align: center; }
+  .talent { display: flex; align-items: center; gap: 9px; padding: 7px 0; border-bottom: 1px solid rgba(11,28,50,0.06); font-size: 12px; }
+  .talent:last-child { border-bottom: 0; }
+  .talent div { flex: 1; min-width: 0; }
+  .talent b { display: block; font-size: 12.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .talent small { color: var(--muted); font-weight: 600; font-size: 11px; white-space: nowrap; }
+  .talent strong { font-size: 13px; }
+  .tag { font-size: 9.5px; font-weight: 800; padding: 3px 7px; border-radius: 100px; background: var(--amber-dim); white-space: nowrap; }
+  @media (max-width: 760px) {
+    .dash-body { grid-template-columns: 1fr; }
+    .dash-side { display: none; }
+    .kpis { grid-template-columns: repeat(2, 1fr); }
+    .dash-row { grid-template-columns: 1fr; }
+  }
+  .corp-points { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-top: 40px; }
+  @media (max-width: 1000px) { .corp-points { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 600px) { .corp-points { grid-template-columns: 1fr; } }
+  .cp { border-top: 2px solid var(--amber); padding-top: 16px; }
+  .cp h4 { font-size: 17px; font-weight: 800; margin-bottom: 6px; color: #fff; }
+  .cp p { font-size: 14.5px; color: var(--muted-d); }
+
+  /* growth path phone */
+  .gp-head { background: var(--navy); color: #fff; padding: 52px 16px 16px; }
+  .gp-head .row { display: flex; align-items: center; gap: 10px; }
+  .gp-head .av { width: 44px; height: 44px; font-size: 14px; border-color: var(--amber); }
+  .gp-head b { font-size: 15px; display: block; }
+  .gp-head small { font-size: 10.5px; color: var(--muted-d); font-weight: 600; }
+  .lvl { margin-top: 12px; font-size: 10.5px; font-weight: 800; color: var(--amber); display: flex; justify-content: space-between; }
+  .lvlbar { height: 6px; border-radius: 3px; background: rgba(255,255,255,0.12); margin-top: 6px; overflow: hidden; }
+  .lvlbar i { display: block; height: 100%; width: 72%; background: linear-gradient(90deg, var(--red-2), var(--amber)); }
+  .badges { display: flex; gap: 6px; padding: 12px 16px 4px; }
+  .badges span { width: 34px; height: 34px; border-radius: 10px; background: #fff; display: flex; align-items: center; justify-content: center; font-size: 16px; box-shadow: 0 3px 8px rgba(0,0,0,0.06); }
+  .tl { padding: 8px 16px 70px; position: relative; }
+  .tl::before { content: ""; position: absolute; left: 25px; top: 18px; bottom: 80px; width: 2px; background: #E7E2DA; }
+  .tli { display: flex; gap: 10px; margin: 8px 0; position: relative; }
+  .tli .pin { width: 20px; height: 20px; border-radius: 50%; background: #fff; border: 2px solid var(--red); flex: none; display: flex; align-items: center; justify-content: center; font-size: 9px; z-index: 1; }
+  .tli.win .pin { background: var(--red); color: #fff; }
+  .tli div { flex: 1; background: #fff; border-radius: 12px; padding: 8px 10px; box-shadow: 0 3px 8px rgba(0,0,0,0.05); }
+  .tli small { display: block; font-size: 9px; font-weight: 800; color: var(--muted); letter-spacing: 0.6px; }
+  .tli b { font-size: 11px; display: block; line-height: 1.35; }
+  .tli em { font-style: normal; font-size: 10px; font-weight: 800; color: var(--red); }
+  .tli.win div { background: var(--amber-dim); }
+  .growth-stats { display: flex; gap: 34px; flex-wrap: wrap; margin-top: 34px; }
+  .growth-stats b { display: block; font-size: 38px; font-weight: 800; letter-spacing: -1px; color: var(--red); }
+  .growth-stats span { font-size: 13.5px; color: var(--muted); font-weight: 600; }
+
+  /* proof */
+  .big { font-size: 64px; font-weight: 800; letter-spacing: -2px; color: var(--amber); display: block; line-height: 1; margin-bottom: 14px; }
+  .partners { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 30px; }
+  .partner { border: 1px solid var(--line); border-radius: 100px; padding: 10px 18px; font-weight: 700; font-size: 14px; color: rgba(255,255,255,0.85); }
+
+  /* final CTA */
+  .final { text-align: center; overflow: hidden; }
+  .final .hero-kanji { left: 50%; right: auto; top: 50%; transform: translate(-50%, -50%); font-size: 520px; }
+  .final h2 { font-size: clamp(44px, 6vw, 80px); }
+  .final .mail { display: inline-block; margin-top: 30px; padding: 16px 30px; border: 1.5px solid rgba(255,165,31,0.45); border-radius: 100px; color: var(--amber); font-weight: 800; font-size: 18px; background: rgba(255,165,31,0.08); word-break: break-all; }
+  .final .mail:hover { background: rgba(255,165,31,0.16); }
+  .final .by { margin-top: 26px; font-size: 12px; letter-spacing: 3px; color: var(--muted-d); font-weight: 700; }
+
+  footer { background: var(--navy-2); color: var(--muted-d); padding: 34px 0; font-size: 14px; border-top: 1px solid var(--line); }
+  footer .wrap { display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap; }
+  footer nav { display: flex; gap: 22px; flex-wrap: wrap; }
+  footer a:hover { color: #fff; }
+
+  .rv { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s ease; }
+  .rv.in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) {
+    .rv { opacity: 1; transform: none; transition: none; }
+    .ticker-track, .eyebrow .dot { animation: none; }
+    html { scroll-behavior: auto; }
+  }
+</style>
+</head>
+<body>
+
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a class="logo" href="#top" aria-label="Myaku"><img src="glyph.png" alt="">myaku</a>
+    <nav class="nav-links">
+      <a href="#corp"><span class="en">For corporations</span><span class="ja">企業の方へ</span></a>
+      <a href="#product"><span class="en">Product</span><span class="ja">プロダクト</span></a>
+      <a href="#rooms"><span class="en">Rooms</span><span class="ja">部屋</span></a>
+      <a href="#challenges"><span class="en">Challenges</span><span class="ja">チャレンジ</span></a>
+      <a href="#pilot"><span class="en">Pilot</span><span class="ja">導入</span></a>
+    </nav>
+    <div class="nav-right">
+      <div class="lang" role="group" aria-label="Language">
+        <button type="button" data-set-lang="en">EN</button>
+        <button type="button" data-set-lang="ja">日本語</button>
+      </div>
+      <a class="btn btn-red btn-sm" href="mailto:v.shevchuk@howcow.tech?subject=Myaku%20demo%20for%20our%20company"><span class="en">Book a demo</span><span class="ja">デモを予約</span></a>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero-kanji" aria-hidden="true">脈</div>
+  <div class="wrap">
+    <div>
+      <span class="eyebrow"><span class="dot"></span><span class="en">For Japanese corporations</span><span class="ja">日本の大企業のために</span></span>
+      <h1>
+        <span class="en">Your people<br>grow <em>inside.</em><br>Not out.</span>
+        <span class="ja">辞めずに、<br><em>社内で伸びる。</em></span>
+      </h1>
+      <p class="lead">
+        <span class="en">Myaku is the internal growth platform for Japan's largest corporations. Employees find colleagues, projects and challenges across every division and build a career without leaving. The company finally sees who moves it forward.</span>
+        <span class="ja">Myakuは日本の大企業のための社内成長プラットフォーム。社員は全部署の同僚・プロジェクト・チャレンジに出会い、会社を辞めずにキャリアを築く。会社は、誰が前に進めているのかが初めて見える。</span>
+      </p>
+      <div class="hero-ctas">
+        <a class="btn btn-red" href="mailto:v.shevchuk@howcow.tech?subject=Myaku%20demo%20for%20our%20company"><span class="en">Book a demo for your company →</span><span class="ja">自社向けデモを予約 →</span></a>
+        <a class="btn btn-ghost" href="#corp"><span class="en">What leadership sees</span><span class="ja">経営層に見えるもの</span></a>
+      </div>
+      <div class="stats">
+        <div class="stat"><b>¥8-12M</b><span class="en">saved per engineer who stays</span><span class="ja">定着したエンジニア1人あたりの節約</span></div>
+        <div class="stat"><b>3 mo</b><span class="en">pilot in one division</span><span class="ja">1部署でのパイロット期間</span></div>
+        <div class="stat"><b>¥3,000</b><span class="en">per seat, per month</span><span class="ja">1席あたり月額</span></div>
+      </div>
+    </div>
+
+    <div class="rv">
+      <div class="phone" aria-hidden="true">
+        <div class="screen">
+          <div class="scr-top">
+            <div class="scr-title">Discover</div>
+            <div class="seg"><i class="on">Cards</i><i>List</i></div>
+          </div>
+          <div style="padding:0 16px" class="chips">
+            <span class="chip dark">All</span><span class="chip">🤖 AI &amp; Data</span><span class="chip">🔬 R&amp;D</span>
+          </div>
+          <div class="deck">
+            <div class="card-behind"></div>
+            <div class="pcard">
+              <span class="stamp">脈 CONNECT</span>
+              <div class="pcard-head">
+                <span class="av a3 big">YK</span>
+                <h4>Yuki Kobayashi</h4>
+                <p>Senior ML Engineer · 🤖 AI &amp; Data</p>
+              </div>
+              <div class="pcard-body">
+                <div class="lbl">IN COMMON</div>
+                <div class="chips"><span class="chip red">⚡ Energy</span><span class="chip red">Python</span></div>
+                <div class="lbl">WORKING ON</div>
+                <div style="font-size:11.5px;line-height:1.45">Predicting battery wear from factory sensor data. Looking for a materials person.</div>
+              </div>
+            </div>
+          </div>
+          <div class="acts"><span class="act">✕</span><span class="act">💬</span><span class="act yes">脈</span></div>
+          <div class="tabbar">
+            <span class="on"><b></b>Discover</span><span><b></b>Rooms</span><span><b></b>Challenges</span><span><b></b>Score</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track">
+    <span>GROW INSIDE</span><span>DISCOVER</span><span class="k">部屋</span><span>COMPANY TABLES</span><span>CHALLENGES</span><span class="k">脈スコア</span><span>CROSS-DIVISION</span><span>SWIPE TO CONNECT</span><span>HIDDEN TALENT MAP</span><span>HR PULSE</span><span>EN · 日本語</span><span>JAPAN FIRST</span>
+    <span>GROW INSIDE</span><span>DISCOVER</span><span class="k">部屋</span><span>COMPANY TABLES</span><span>CHALLENGES</span><span class="k">脈スコア</span><span>CROSS-DIVISION</span><span>SWIPE TO CONNECT</span><span>HIDDEN TALENT MAP</span><span>HR PULSE</span><span>EN · 日本語</span><span>JAPAN FIRST</span>
+  </div>
+</div>
+
+<!-- PROBLEM -->
+<section class="dark" id="problem">
+  <div class="wrap">
+    <span class="eyebrow"><span class="en">The problem</span><span class="ja">課題</span></span>
+    <h2 class="rv">
+      <span class="en">100,000 employees.<br><em>Zero visibility.</em></span>
+      <span class="ja">社員10万人。<br><em>互いが見えていない。</em></span>
+    </h2>
+    <div class="grid4">
+      <div class="card rv"><span class="ico">🏢</span>
+        <h3><span class="en">Silos by design</span><span class="ja">構造的なサイロ</span></h3>
+        <p><span class="en">Knowledge is locked inside divisions. The AI team has no idea what Mobility is building one floor up.</span><span class="ja">知識は部署の中に閉じている。AIチームは、ひとつ上の階でモビリティ部門が何を作っているか知らない。</span></p>
+      </div>
+      <div class="card rv"><span class="ico">🚶</span>
+        <h3><span class="en">Talent walks out</span><span class="ja">人材が去っていく</span></h3>
+        <p><span class="en">Engineers leave when ideas die in committee. Replacing one costs ¥8 to 12M.</span><span class="ja">アイデアが会議で消えると、エンジニアは辞める。1人の補充コストは800万〜1,200万円。</span></p>
+      </div>
+      <div class="card rv"><span class="ico">🔁</span>
+        <h3><span class="en">Duplicated R&amp;D</span><span class="ja">重複する研究開発</span></h3>
+        <p><span class="en">Several teams solve the same problem in parallel. Time and budget burn, invisibly.</span><span class="ja">複数のチームが同じ課題を並行して解いている。時間と予算が見えないところで消えていく。</span></p>
+      </div>
+      <div class="card rv"><span class="ico">📉</span>
+        <h3><span class="en">Falling behind</span><span class="ja">遅れをとる</span></h3>
+        <p><span class="en">Korea and Taiwan move faster. The bottleneck is not technology. It is internal signal.</span><span class="ja">韓国や台湾はより速く動く。ボトルネックは技術ではなく、社内のシグナルだ。</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- FOR THE CORPORATION -->
+<section class="darker" id="corp">
+  <div class="wrap">
+    <span class="eyebrow"><span class="en">For the corporation</span><span class="ja">企業のために</span></span>
+    <h2 class="rv"><span class="en">Your company's pulse.<br><em>Finally visible.</em></span><span class="ja">会社の脈が、<br><em>ついに見える。</em></span></h2>
+    <p class="sub"><span class="en">Myaku is bought by the company and loved by the people. Leadership and HR see what really moves the organization: who connects divisions, which ideas gain momentum, and where talent is hiding.</span><span class="ja">Myakuは会社が導入し、社員が使いたくなるツール。経営層と人事は、組織を本当に動かしているものを見られる。部署をつなぐ人、勢いのあるアイデア、隠れた人材。</span></p>
+
+    <div class="rv" style="margin-top:46px">
+      <div class="dash" aria-hidden="true">
+        <div class="dash-bar"><i></i><i></i><i></i><span>Myaku · HR Pulse · HowCow Group</span></div>
+        <div class="dash-body">
+          <div class="dash-side">
+            <div class="logo"><img src="glyph.png" alt="">myaku</div>
+            <div class="on">📈 Pulse</div><div>🧭 Talent map</div><div>🏢 Company tables</div><div>🚀 Challenges</div><div>🏆 Score &amp; bonus</div><div>⚙️ Settings</div>
+          </div>
+          <div class="dash-main">
+            <div class="kpis">
+              <div class="kpi"><small><span class="en">Active this month</span><span class="ja">今月のアクティブ</span></small><b>82%</b><em>▲ 11 pt</em></div>
+              <div class="kpi"><small><span class="en">Cross-division links</span><span class="ja">部署横断のつながり</span></small><b>1,248</b><em>▲ 38%</em></div>
+              <div class="kpi"><small><span class="en">Ideas in motion</span><span class="ja">進行中のアイデア</span></small><b>126</b><em>▲ 24</em></div>
+              <div class="kpi"><small><span class="en">Tables solved</span><span class="ja">解決したテーブル</span></small><b>31</b><em>▲ 9</em></div>
+            </div>
+            <div class="dash-row">
+              <div class="dpanel">
+                <h5><span class="en">Who talks to whom</span><span class="ja">部署間のつながり</span></h5>
+                <div class="heat" id="heat"></div>
+              </div>
+              <div class="dpanel">
+                <h5><span class="en">Hidden talent · by contribution</span><span class="ja">隠れた人材 · 貢献順</span></h5>
+                <div class="talent"><span class="av a3">YK</span><div><b>Yuki Kobayashi</b><small>ML Engineer · 4 yrs</small></div><span class="tag">🏆 Won</span><strong>842</strong></div>
+                <div class="talent"><span class="av a1">TN</span><div><b>Takeshi Nakamura</b><small>Battery Chemist · 2 yrs</small></div><span class="tag">3 tables</span><strong>790</strong></div>
+                <div class="talent"><span class="av a4">RS</span><div><b>Rin Sato</b><small>UX Lead · 6 yrs</small></div><span class="tag">Connector</span><strong>761</strong></div>
+                <div class="talent"><span class="av a5">KM</span><div><b>Kenji Matsuda</b><small>Product Owner · 1 yr</small></div><span class="tag">Rising</span><strong>743</strong></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="corp-points">
+      <div class="cp rv"><h4><span class="en">Hidden talent map</span><span class="ja">隠れた人材マップ</span></h4><p><span class="en">See builders by what they contribute, not by seniority. Promote from inside with evidence.</span><span class="ja">年功ではなく貢献で人材を把握。根拠をもって社内から登用できる。</span></p></div>
+      <div class="cp rv"><h4><span class="en">Silo heatmap</span><span class="ja">サイロのヒートマップ</span></h4><p><span class="en">Which divisions work together and which never meet. Fix the gaps before they cost a product.</span><span class="ja">どの部署が協働し、どこが交わらないか。製品を失う前にすき間を埋める。</span></p></div>
+      <div class="cp rv"><h4><span class="en">Engagement you can measure</span><span class="ja">測れるエンゲージメント</span></h4><p><span class="en">Activity trends per division, anonymous and aggregated. Ready for ESG reports and the board.</span><span class="ja">部署ごとの活動推移を匿名・集計で。ESG報告や取締役会にそのまま使える。</span></p></div>
+      <div class="cp rv"><h4><span class="en">Innovation pipeline</span><span class="ja">イノベーションの流れ</span></h4><p><span class="en">Every challenge and company table tracked from idea to result. Budget goes to what works.</span><span class="ja">すべてのチャレンジと会社のテーブルを、アイデアから成果まで追跡。予算は成果の出るところへ。</span></p></div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCT -->
+<section class="cream" id="product">
+  <div class="wrap">
+    <span class="eyebrow"><span class="en">The product</span><span class="ja">プロダクト</span></span>
+    <h2 class="rv"><span class="en">Four screens.<br><em>One pulse.</em></span><span class="ja">4つの画面。<br><em>ひとつの脈。</em></span></h2>
+    <p class="sub"><span class="en">One app for every employee. Deploys in one sprint. White-label, in Japanese and English.</span><span class="ja">全社員のためのひとつのアプリ。1スプリントで導入。ホワイトラベル、日英対応。</span></p>
+    <div class="grid4">
+      <div class="card rv"><span class="num">01</span><h3 style="margin-top:8px">Discover</h3><span class="jp">発見</span>
+        <p><span class="en">Swipe through colleagues across every division by skill, project and interest. The robotics engineer finds the AI team, today.</span><span class="ja">スキル・プロジェクト・興味で全部署の同僚をスワイプ。ロボットエンジニアがAIチームを今日見つける。</span></p></div>
+      <div class="card rv"><span class="num">02</span><h3 style="margin-top:8px">Rooms</h3><span class="jp">部屋</span>
+        <p><span class="en">Every room is a table. Topic hubs, team tables, and company tables where people take a seat around a real task.</span><span class="ja">すべての部屋はテーブル。テーマ別ハブ、チームのテーブル、そして実際の課題に社員が席をとる会社のテーブル。</span></p></div>
+      <div class="card rv"><span class="num">03</span><h3 style="margin-top:8px">Challenges</h3><span class="jp">チャレンジ</span>
+        <p><span class="en">The company launches innovation sprints. Teams self-assemble across divisions. The best project gets budget, not a committee.</span><span class="ja">会社がイノベーション・スプリントを開催。部署を越えてチームが自発的に集まり、最優秀案には会議ではなく予算がつく。</span></p></div>
+      <div class="card rv"><span class="num">04</span><h3 style="margin-top:8px">Score</h3><span class="jp">脈スコア</span>
+        <p><span class="en">Every contribution earns points. Monthly bonus eligibility of ¥8k to 22k. HR sees the hidden talent map in real time.</span><span class="ja">すべての貢献がポイントに。月額8千〜2万2千円のボーナス対象。人事は隠れた人材マップをリアルタイムで把握。</span></p></div>
+    </div>
+  </div>
+</section>
+
+<!-- DISCOVER -->
+<section class="white" id="discover">
+  <div class="wrap split">
+    <div class="rv">
+      <span class="eyebrow"><span class="en">Discovery layer</span><span class="ja">ディスカバリー</span></span>
+      <h2><span class="en">Find people.<br>Find projects.<br><em>Get matched.</em></span><span class="ja">人を見つける。<br>プロジェクトを見つける。<br><em>つながる。</em></span></h2>
+      <p class="sub"><span class="en">Every employee sees what is happening across all divisions. Swipe right to connect. The internal wall comes down.</span><span class="ja">全社員が全部署の動きを見られる。右にスワイプでつながる。社内の壁が消える。</span></p>
+      <div class="feat"><div class="fi">🧭</div><div><h4><span class="en">Cross-division first</span><span class="ja">他部署を優先表示</span></h4><p><span class="en">People from other departments who share your interests come first. Breaking silos is the default.</span><span class="ja">興味が重なる他部署の人が先に表示される。サイロを壊すのが標準設定。</span></p></div></div>
+      <div class="feat"><div class="fi">🎯</div><div><h4><span class="en">"In common" on every card</span><span class="ja">すべてのカードに「共通点」</span></h4><p><span class="en">Shared skills and topics are shown upfront, so the first message is never awkward.</span><span class="ja">共通のスキルとテーマが最初に表示されるので、最初のメッセージも自然に送れる。</span></p></div></div>
+      <div class="feat"><div class="fi">🎙️</div><div><h4><span class="en">Voice intro, 60 seconds</span><span class="ja">60秒の音声自己紹介</span></h4><p><span class="en">Hear a colleague before you meet them. Faster than reading a CV, warmer than an org chart.</span><span class="ja">会う前に声を聞ける。履歴書より速く、組織図より温かい。</span></p></div></div>
+    </div>
+    <div class="rv">
+      <div class="panel" style="max-width:440px">
+        <div class="lbl" style="margin-top:0">DISCOVER · LIST</div>
+        <div style="display:flex;flex-direction:column;gap:10px;margin-top:10px">
+          <div class="person"><span class="av a1">TN</span><div><b>Takeshi Nakamura</b><small>Battery Chemist · 🔬 R&amp;D</small></div><span class="chip amber">Cross-department</span></div>
+          <div class="person"><span class="av a3">AH</span><div><b>Akemi Hayashi</b><small>Data Engineer · 🤖 AI &amp; Data</small></div><span class="chip red">Python</span></div>
+          <div class="person"><span class="av a4">RS</span><div><b>Rin Sato</b><small>UX Lead · 🎨 Design</small></div><span class="chip amber">Cross-department</span></div>
+          <div class="person"><span class="av a5">KM</span><div><b>Kenji Matsuda</b><small>Product Owner · 🚗 Mobility</small></div><span class="chip">脈</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ROOMS -->
+<section class="cream" id="rooms">
+  <div class="wrap split rev">
+    <div class="rv">
+      <span class="eyebrow"><span class="en">Rooms · 部屋</span><span class="ja">部屋</span></span>
+      <h2><span class="en">Every room<br>is a <em>table.</em></span><span class="ja">すべての部屋は<br><em>テーブル</em>。</span></h2>
+      <p class="sub"><span class="en">Ideas cross the hierarchy without breaking it. Anyone can take a seat. Nobody needs permission to help.</span><span class="ja">アイデアは階層を壊さずに越えていく。誰でも席につける。手伝うのに許可はいらない。</span></p>
+      <div class="feat"><div class="fi">🏢</div><div><h4><span class="en">Company tables</span><span class="ja">会社のテーブル</span></h4><p><span class="en">A department posts a real task with a goal, needed skills and a deadline. Employees take a seat and solve it together.</span><span class="ja">部署がゴール・必要スキル・期限つきの実課題を掲示。社員が席について一緒に解決する。</span></p></div></div>
+      <div class="feat"><div class="fi">🤖</div><div><h4><span class="en">Company hubs</span><span class="ja">全社ハブ</span></h4><p><span class="en">Permanent topics for everyone: AI, Sustainability, R&amp;D, Mobility. Any employee joins any hub.</span><span class="ja">AI、サステナビリティ、研究開発、モビリティなど全員向けの常設テーマ。誰でもどのハブにも参加できる。</span></p></div></div>
+      <div class="feat"><div class="fi">☕</div><div><h4><span class="en">Team tables</span><span class="ja">チームのテーブル</span></h4><p><span class="en">Open a table around a topic or project in two taps. Add a Teams or Zoom link and the conversation starts.</span><span class="ja">2タップでテーマやプロジェクトのテーブルを開く。TeamsやZoomのリンクを貼れば会話が始まる。</span></p></div></div>
+    </div>
+    <div class="rv">
+      <div class="panel">
+        <div class="tbl-head"><span class="em">🔋</span><div><h4><span class="en">Battery recycling pilot</span><span class="ja">電池リサイクル・パイロット</span></h4><small><span class="en">🔬 R&amp;D · 12 days left</span><span class="ja">🔬 研究開発 · 残り12日</span></small></div></div>
+        <div class="goal">🎯 <span class="en">Cut cell waste at Line 3 by 15% this quarter</span><span class="ja">今期中にライン3のセル廃棄を15%削減</span></div>
+        <div class="table-stage" id="tableStage">
+          <div class="table-top"><span>🔋</span><small class="en">Good ideas start here</small><small class="ja">いいアイデアはここから</small></div>
+        </div>
+        <div class="tbl-foot">
+          <div class="chips"><span class="chip red">Python</span><span class="chip">Materials</span><span class="chip">Lean</span></div>
+          <b><span class="en">3 seats left</span><span class="ja">残り3席</span></b>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CHALLENGES + SCORE -->
+<section class="white" id="challenges">
+  <div class="wrap split">
+    <div class="rv">
+      <span class="eyebrow"><span class="en">Motivation layer</span><span class="ja">モチベーション</span></span>
+      <h2><span class="en">Compete.<br>Achieve.<br><em>Rise.</em></span><span class="ja">挑む。<br>成し遂げる。<br><em>伸びる。</em></span></h2>
+      <p class="sub"><span class="en">Young employees want visible impact. Challenges, leaderboards and a Myaku Score that follows them everywhere inside the company.</span><span class="ja">若い社員は目に見える成果を求めている。チャレンジ、ランキング、そして社内のどこでもついてくる脈スコア。</span></p>
+      <div class="note">
+        <b><span class="en">Why Gen Z stays</span><span class="ja">Z世代が残る理由</span></b>
+        <span class="en">Visible contribution. Public recognition. Rewards for ideas. A career that moves, without leaving the company.</span>
+        <span class="ja">見える貢献。公の評価。アイデアへの報酬。会社を辞めずに動くキャリア。</span>
+      </div>
+    </div>
+    <div class="rv">
+      <div class="mocks2">
+        <div class="mock">
+          <span class="chip red">🚀 <span class="en">Open · 21 days</span><span class="ja">募集中 · 残り21日</span></span>
+          <div class="t"><span class="en">Cut factory energy use by 10%</span><span class="ja">工場のエネルギー使用量を10%削減</span></div>
+          <div class="m"><span class="en">⚡ Energy · up to 5 per team</span><span class="ja">⚡ エネルギー · 1チーム最大5人</span></div>
+          <div class="prize"><small><span class="en">PRIZE</span><span class="ja">賞</span></small><b>¥5,000,000</b><span style="font-size:12.5px;font-weight:700"><span class="en">+ path to production</span><span class="ja">＋ 製品化への道</span></span></div>
+          <div class="teamrow"><div class="stack"><span class="av a1">YK</span><span class="av a2">TN</span><span class="av a3">AH</span><span class="av a4">RS</span><span class="av a6">KM</span></div><span><span class="en">4 teams · 17 people</span><span class="ja">4チーム · 17人</span></span></div>
+        </div>
+        <div class="score">
+          <small><span class="en">THIS MONTH</span><span class="ja">今月</span></small>
+          <div class="pts">842<i> pt</i></div>
+          <div class="rk"><span class="en">#3 of 48 · All time 2,310</span><span class="ja">48人中3位 · 累計 2,310</span></div>
+          <div class="bonus"><small><span class="en">BONUS TIER</span><span class="ja">ボーナス区分</span></small><b>¥22,000</b><div class="bar"><i style="width:92%"></i></div></div>
+          <div class="brk">
+            <div><span class="en">Challenge won</span><span class="ja">チャレンジ優勝</span><b>+100</b></div>
+            <div><span class="en">Company tables</span><span class="ja">会社のテーブル</span><b>+8</b></div>
+            <div><span class="en">New connections</span><span class="ja">新しいつながり</span><b>+3</b></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- GROW INSIDE -->
+<section class="cream" id="grow">
+  <div class="wrap split rev">
+    <div class="rv">
+      <span class="eyebrow"><span class="en">Grow inside</span><span class="ja">社内で伸びる</span></span>
+      <h2><span class="en">A career that moves.<br><em>Without changing companies.</em></span><span class="ja">会社を変えずに、<br><em>キャリアが動く。</em></span></h2>
+      <p class="sub"><span class="en">Myaku turns the company into the best place to grow. Every connection, seat and challenge builds a visible track record that managers can see and reward.</span><span class="ja">Myakuは会社を、いちばん成長できる場所に変える。つながり、席、チャレンジのひとつひとつが、上司に見えて評価される実績になる。</span></p>
+      <div class="feat"><div class="fi">📈</div><div><h4><span class="en">Levels and badges</span><span class="ja">レベルとバッジ</span></h4><p><span class="en">Progress is visible from week one. Contributor, Connector, Innovator, Lead.</span><span class="ja">成長は1週目から見える。コントリビューター、コネクター、イノベーター、リード。</span></p></div></div>
+      <div class="feat"><div class="fi">🧑‍💼</div><div><h4><span class="en">Seen by the right managers</span><span class="ja">適切な上司の目に届く</span></h4><p><span class="en">Your track record reaches leaders in other divisions too. Internal mobility without a single job board.</span><span class="ja">実績は他部署のリーダーにも届く。求人掲示板なしで社内異動が生まれる。</span></p></div></div>
+      <div class="feat"><div class="fi">💴</div><div><h4><span class="en">Rewards that are real</span><span class="ja">本物の報酬</span></h4><p><span class="en">Monthly bonus tier, challenge budgets, and a path from idea to production.</span><span class="ja">月次ボーナス区分、チャレンジの予算、そしてアイデアから製品化への道。</span></p></div></div>
+      <div class="growth-stats">
+        <div><b>30</b><span class="en">days from first swipe to team lead</span><span class="ja">最初のスワイプからチームリードまでの日数</span></div>
+        <div><b>4</b><span class="en">divisions in one person's network</span><span class="ja">一人のネットワークに入った部署数</span></div>
+      </div>
+      <p style="font-size:12.5px;color:var(--muted);margin-top:10px"><span class="en">Example journey, shown in the app.</span><span class="ja">アプリ内の表示例。</span></p>
+    </div>
+    <div class="rv">
+      <div class="phone" aria-hidden="true">
+        <div class="screen">
+          <div class="gp-head">
+            <div class="row"><span class="av a3">YK</span><div><b>Yuki Kobayashi</b><small>ML Engineer · 🤖 AI &amp; Data</small></div></div>
+            <div class="lvl"><span>INNOVATOR · LV 4</span><span>842 / 1,000</span></div>
+            <div class="lvlbar"><i></i></div>
+          </div>
+          <div class="badges"><span>🤝</span><span>🪑</span><span>🚀</span><span>🏆</span><span style="opacity:.35">🎙️</span><span style="opacity:.35">👑</span></div>
+          <div class="lbl" style="padding:0 16px">MY PATH · THIS QUARTER</div>
+          <div class="tl">
+            <div class="tli"><span class="pin">🪑</span><div><small>SEP 9</small><b>Took a seat: Battery recycling pilot</b><em>+8</em></div></div>
+            <div class="tli"><span class="pin">🚀</span><div><small>SEP 20</small><b>Team lead: Energy challenge</b><em>+15</em></div></div>
+            <div class="tli win"><span class="pin">🏆</span><div><small>OCT 1</small><b>Challenge won. ¥5M budget to production</b><em>+100</em></div></div>
+            <div class="tli"><span class="pin">💴</span><div><small>OCT 31</small><b>Bonus tier: ¥22,000</b></div></div>
+          </div>
+          <div class="tabbar">
+            <span><b></b>Discover</span><span><b></b>Rooms</span><span><b></b>Challenges</span><span class="on"><b></b>Score</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VALUE -->
+<section class="value" id="value">
+  <div class="wrap">
+    <span class="eyebrow"><span class="en">The value</span><span class="ja">価値</span></span>
+    <h2 class="rv"><span class="en">Motivated people.<br>A stronger company. <em>Same building.</em></span><span class="ja">意欲ある社員。<br>強くなる会社。<em>同じ建物の中で。</em></span></h2>
+    <div class="grid2">
+      <div class="vbox rv">
+        <h3><span class="en">For the corporation</span><span class="ja">企業にとって</span></h3>
+        <ul>
+          <li><span class="en">Lower talent churn. One retained engineer saves ¥8 to 12M</span><span class="ja">離職の減少。エンジニア1人の定着で800万〜1,200万円を節約</span></li>
+          <li><span class="en">No more parallel teams solving the same problem</span><span class="ja">同じ課題を並行して解くチームがなくなる</span></li>
+          <li><span class="en">Faster cross-team project velocity</span><span class="ja">部署横断プロジェクトの加速</span></li>
+          <li><span class="en">A hidden talent map: HR sees builders, not seniority</span><span class="ja">隠れた人材マップ：年功ではなく、作る人が見える</span></li>
+          <li><span class="en">A measurable engagement platform for ESG reporting</span><span class="ja">ESG報告に使える、測定可能なエンゲージメント基盤</span></li>
+        </ul>
+      </div>
+      <div class="vbox rv">
+        <h3><span class="en">For the people</span><span class="ja">社員にとって</span></h3>
+        <ul>
+          <li><span class="en">Broadcast an idea. The right person finds it the same day</span><span class="ja">アイデアを発信すれば、その日のうちに適任者に届く</span></li>
+          <li><span class="en">Build across departments without knowing anyone yet</span><span class="ja">知り合いがいなくても部署を越えて協働できる</span></li>
+          <li><span class="en">Join Challenges, win budget, change your trajectory</span><span class="ja">チャレンジに参加し、予算を勝ち取り、キャリアを変える</span></li>
+          <li><span class="en">Get credit for work that used to go unnoticed</span><span class="ja">これまで見過ごされていた貢献が評価される</span></li>
+          <li><span class="en">A reason to stay, inside a company you already know</span><span class="ja">すでに知っている会社の中に、残る理由ができる</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="cream" id="how">
+  <div class="wrap">
+    <span class="eyebrow"><span class="en">How it works</span><span class="ja">しくみ</span></span>
+    <h2 class="rv"><span class="en">One app. Four surfaces.<br><em>The complete internal discovery layer.</em></span><span class="ja">ひとつのアプリ。4つの面。<br><em>社内ディスカバリーのすべて。</em></span></h2>
+    <div class="grid2">
+      <div class="card rv"><span class="ico">📡</span><h3><span class="en">Live signal</span><span class="ja">ライブシグナル</span></h3><p><span class="en">Every project, idea and initiative inside the company becomes visible. Employees broadcast, the organization receives in real time.</span><span class="ja">社内のあらゆるプロジェクト、アイデア、取り組みが見える化。社員が発信し、組織がリアルタイムで受け取る。</span></p></div>
+      <div class="card rv"><span class="ico">🤝</span><h3><span class="en">Cross-division matching</span><span class="ja">部署横断マッチング</span></h3><p><span class="en">Shared skills and interests surface the right people for the right work, across every department, without manual search or HR mediation.</span><span class="ja">共通のスキルと興味から、適材を適所へ。全部署を横断し、手作業の検索や人事の仲介は不要。</span></p></div>
+      <div class="card rv"><span class="ico">🏆</span><h3><span class="en">Merit-based visibility</span><span class="ja">実力で見える化</span></h3><p><span class="en">The Myaku Score makes contribution visible, rankable and rewarded. The rules are transparent and the same for everyone.</span><span class="ja">脈スコアが貢献を見える化し、順位づけし、報いる。ルールは透明で全員に同じ。</span></p></div>
+      <div class="card rv"><span class="ico">🔐</span><h3><span class="en">Enterprise-grade control</span><span class="ja">エンタープライズ水準の管理</span></h3><p><span class="en">Sign-in by corporate domain, strict data separation per company, admin and HR roles. SSO for full rollout. Built for Japanese enterprise requirements.</span><span class="ja">企業ドメインでのログイン、企業ごとの厳格なデータ分離、管理者・人事ロール。全社展開時はSSO対応。日本企業の要件に合わせて設計。</span></p></div>
+    </div>
+  </div>
+</section>
+
+<!-- JAPAN -->
+<section class="dark" id="japan">
+  <div class="wrap">
+    <span class="eyebrow"><span class="en">The bigger picture</span><span class="ja">より大きな視点</span></span>
+    <h2 class="rv"><span class="en">When companies connect internally,<br><em>Japan wins globally.</em></span><span class="ja">企業が内側でつながるとき、<br><em>日本は世界で勝つ。</em></span></h2>
+    <div class="grid3">
+      <div class="card rv"><span class="ico">🏛️</span><h3><span class="en">METI &amp; Society 5.0</span><span class="ja">経産省とSociety 5.0</span></h3><p><span class="en">Aligned with Japan's national digital transformation agenda. Myaku puts into daily practice the internal connectivity Society 5.0 asks for.</span><span class="ja">日本のDX政策と方向を同じくする。Society 5.0が求める社内のつながりを、Myakuが日々の業務にする。</span></p></div>
+      <div class="card rv"><span class="ico">📊</span><h3><span class="en">Demographic dividend</span><span class="ja">人口動態への答え</span></h3><p><span class="en">Japan is losing millions of workers this decade. The answer is more output per person. Myaku turns one engineer into a node in a 100,000-person network.</span><span class="ja">日本はこの10年で数百万人の働き手を失う。答えは一人あたりの生産性。Myakuは一人のエンジニアを10万人のネットワークの一点に変える。</span></p></div>
+      <div class="card rv"><span class="ico">🎌</span><h3><span class="en">A Japanese model</span><span class="ja">日本型モデル</span></h3><p><span class="en">Built for Japan's organizational culture. Group harmony with individual recognition. Lifetime employment with internal mobility.</span><span class="ja">日本の組織文化のために設計。和を保ちながら個人を評価する。終身雇用の中で社内の流動性を生む。</span></p></div>
+    </div>
+  </div>
+</section>
+
+<!-- PILOT -->
+<section class="cream" id="pilot">
+  <div class="wrap">
+    <span class="eyebrow"><span class="en">The entry point</span><span class="ja">はじめ方</span></span>
+    <h2 class="rv"><span class="en">One pilot. One division.<br><em>Then the data speaks.</em></span><span class="ja">ひとつのパイロット。ひとつの部署。<br><em>あとはデータが語る。</em></span></h2>
+    <div class="steps">
+      <div class="step rv"><h4><span class="en">Pilot</span><span class="ja">パイロット</span></h4><p><span class="en">One division, about 500 employees, three months.</span><span class="ja">1部署、約500人、3か月。</span></p></div>
+      <div class="step rv"><h4><span class="en">ROI report</span><span class="ja">ROIレポート</span></h4><p><span class="en">Connections, cross-division projects, engagement, retention signals.</span><span class="ja">つながり、部署横断プロジェクト、エンゲージメント、定着の兆し。</span></p></div>
+      <div class="step rv"><h4><span class="en">Full rollout</span><span class="ja">全社展開</span></h4><p><span class="en">Company-wide, with SSO and your own branding.</span><span class="ja">SSOと自社ブランドで全社に展開。</span></p></div>
+      <div class="step rv"><h4><span class="en">Group companies</span><span class="ja">グループ展開</span></h4><p><span class="en">Subsidiaries join the same network.</span><span class="ja">グループ会社が同じネットワークに参加。</span></p></div>
+    </div>
+    <div class="price">
+      <div class="price-card rv">
+        <span><span class="en">B2B SaaS · PER SEAT</span><span class="ja">B2B SaaS · 1席あたり</span></span>
+        <b>¥3,000<small> <span class="en">/ month</span><span class="ja">/ 月</span></small></b>
+        <ul>
+          <li><span class="en">Discover, Rooms, Challenges, Score</span><span class="ja">発見・部屋・チャレンジ・スコア</span></li>
+          <li><span class="en">English and Japanese</span><span class="ja">英語・日本語対応</span></li>
+          <li><span class="en">Admin and HR roles</span><span class="ja">管理者・人事ロール</span></li>
+        </ul>
+      </div>
+      <div class="price-card alt rv">
+        <span><span class="en">ENTERPRISE</span><span class="ja">エンタープライズ</span></span>
+        <b><span class="en">White-label</span><span class="ja">ホワイトラベル</span></b>
+        <ul>
+          <li><span class="en">Your brand, your data</span><span class="ja">自社ブランド、自社データ</span></li>
+          <li><span class="en">SSO and a dedicated environment</span><span class="ja">SSOと専用環境</span></li>
+          <li><span class="en">Group-wide deployment</span><span class="ja">グループ全体への展開</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROOF -->
+<section class="darker" id="proof">
+  <div class="wrap">
+    <span class="eyebrow"><span class="en">The proof</span><span class="ja">実績</span></span>
+    <h2 class="rv"><span class="en">We didn't just design Myaku.<br><em>We already built and shipped it.</em></span><span class="ja">Myakuは構想ではない。<br><em>すでに作り、届けている。</em></span></h2>
+    <div class="grid3">
+      <div class="card rv"><b class="big">49</b><p><span class="en">companies joined Зоnd in its first month. Зоnd is the consumer layer that powers Myaku's core.</span><span class="ja">Зоnd の公開初月に参加した企業数。Зоnd はMyakuの中核を支える基盤。</span></p></div>
+      <div class="card rv"><b class="big">2</b><p><span class="en">enterprise partners already active, operating at organizational scale.</span><span class="ja">組織規模ですでに稼働している企業パートナー。</span></p></div>
+      <div class="card rv"><b class="big">1 mo</b><p><span class="en">from launch to real enterprise validation. Myaku is a vertical application of proven technology.</span><span class="ja">公開から企業での実証まで1か月。Myakuは実証済み技術の業界特化版。</span></p></div>
+    </div>
+    <div class="partners rv"><span class="partner">Chemonics International</span><span class="partner">AGRO Ukraine</span></div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="dark final" id="contact">
+  <div class="hero-kanji" aria-hidden="true">脈</div>
+  <div class="wrap" style="position:relative">
+    <img src="glyph.png" alt="" style="width:64px;margin:0 auto 18px">
+    <h2 class="rv"><span class="en">Let's talk.</span><span class="ja">話しましょう。</span></h2>
+    <p class="sub" style="margin:0 auto"><span class="en">Give your people a reason to grow with you. Start with one division and see what moves.</span><span class="ja">社員に、会社と一緒に成長する理由を。ひとつの部署から始めて、何が動くかを見てください。</span></p>
+    <a class="mail" href="mailto:v.shevchuk@howcow.tech?subject=Myaku">v.shevchuk@howcow.tech</a>
+    <div class="by">DEVELOPED BY HOWCOW</div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <a class="logo" href="#top" style="font-size:20px"><img src="glyph.png" alt="" style="width:28px">myaku</a>
+    <nav>
+      <a href="mailto:support@howcow.tech"><span class="en">Contact</span><span class="ja">お問い合わせ</span></a>
+      <a href="privacy.html"><span class="en">Privacy</span><span class="ja">プライバシー</span></a>
+      <a href="support.html"><span class="en">Support</span><span class="ja">サポート</span></a>
+    </nav>
+    <span>© 2026 HowCow Inc.</span>
+  </div>
+</footer>
+
+<script>
+  // Language: ?lang=, saved choice, else browser language. Storage may be blocked.
+  (function () {
+    var root = document.documentElement;
+    function setLang(l) {
+      root.setAttribute('data-lang', l);
+      root.setAttribute('lang', l);
+      document.querySelectorAll('[data-set-lang]').forEach(function (b) {
+        b.classList.toggle('on', b.getAttribute('data-set-lang') === l);
+      });
+      try { localStorage.setItem('myaku-lang', l); } catch (e) {}
+    }
+    var saved = null;
+    try { saved = localStorage.getItem('myaku-lang'); } catch (e) {}
+    var q = null;
+    try { q = new URLSearchParams(location.search).get('lang'); } catch (e) {}
+    var initial = (q === 'ja' || q === 'en') ? q : (saved || ((navigator.language || '').toLowerCase().indexOf('ja') === 0 ? 'ja' : 'en'));
+    setLang(initial);
+    document.querySelectorAll('[data-set-lang]').forEach(function (b) {
+      b.addEventListener('click', function () { setLang(b.getAttribute('data-set-lang')); });
+    });
+  })();
+
+  // Nav gets a background after scrolling.
+  (function () {
+    var nav = document.getElementById('nav');
+    function onScroll() { nav.classList.toggle('scrolled', window.scrollY > 30); }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  })();
+
+  // Seats around the table, same geometry as in the app.
+  (function () {
+    var stage = document.getElementById('tableStage');
+    if (!stage) return;
+    var seats = [
+      { t: 'YK', c: '#FF8A00', host: true }, { t: 'TN', c: '#E60012' }, { t: 'AH', c: '#0B1C32' },
+      { t: 'RS', c: '#C2185B' }, { t: 'KM', c: '#6D4C41' }, null, null, null
+    ];
+    var n = seats.length;
+    seats.forEach(function (s, i) {
+      var a = -Math.PI / 2 + (i * 2 * Math.PI) / n;
+      var el = document.createElement('div');
+      el.className = 'seat' + (s ? (s.host ? ' host' : '') : ' empty');
+      el.style.left = (50 + 42 * Math.cos(a)) + '%';
+      el.style.top = (50 + 40 * Math.sin(a)) + '%';
+      if (s) { el.style.background = s.c; el.textContent = s.t; } else { el.textContent = '+'; }
+      stage.appendChild(el);
+    });
+  })();
+
+  // Division heatmap in the HR dashboard. Red-amber only.
+  (function () {
+    var el = document.getElementById('heat');
+    if (!el) return;
+    var d = ['AI', 'R&D', 'Mob', 'Sus', 'Des', 'Sal'];
+    var m = [
+      [0, .9, .5, .3, .6, .1],
+      [.9, 0, .7, .8, .2, .05],
+      [.5, .7, 0, .4, .3, .5],
+      [.3, .8, .4, 0, .1, .1],
+      [.6, .2, .3, .1, 0, .7],
+      [.1, .05, .5, .1, .7, 0]
+    ];
+    var html = '<span></span>' + d.map(function (x) { return '<span class="h">' + x + '</span>'; }).join('');
+    m.forEach(function (row, i) {
+      html += '<span>' + d[i] + '</span>';
+      row.forEach(function (v, j) {
+        var bg = i === j ? '#0B1C32' : (v < 0.15 ? '#EFE9E1' : 'rgba(230,0,18,' + (0.15 + v * 0.8).toFixed(2) + ')');
+        html += '<span class="c" style="background:' + bg + '"></span>';
+      });
+    });
+    el.innerHTML = html;
+  })();
+
+  // Gentle reveal on scroll.
+  (function () {
+    var els = document.querySelectorAll('.rv');
+    if (!('IntersectionObserver' in window)) { els.forEach(function (e) { e.classList.add('in'); }); return; }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } });
+    }, { threshold: 0.12 });
+    els.forEach(function (e) { io.observe(e); });
+  })();
+</script>
+</body>
+</html>
