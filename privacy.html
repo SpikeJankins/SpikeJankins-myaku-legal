@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Myaku Privacy Policy</title>
+<style>
+  :root { --bg:#FAF9F7; --ink:#0B1C32; --muted:#6B7280; --accent:#E60012; --card:#FFFFFF; }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) { --bg:#080F1C; --ink:#F5F6F8; --muted:#9AA3AF; --accent:#FF3B30; --card:#111B2E; }
+  }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Hiragino Sans","Noto Sans JP",sans-serif;
+    line-height:1.65; padding:env(safe-area-inset-top,0) 16px env(safe-area-inset-bottom,0); }
+  .wrap { max-width:680px; margin:0 auto; padding:36px 0 64px; }
+  .brand { display:flex; align-items:center; gap:10px; font-weight:800; font-size:20px; letter-spacing:-0.3px; }
+  .brand .kanji { color:var(--accent); font-size:26px; }
+  .lang { display:flex; gap:8px; margin:18px 0 8px; }
+  .lang a { text-decoration:none; font-size:13px; font-weight:700; padding:6px 12px; border-radius:100px; background:var(--card); color:var(--ink); }
+  h1 { font-size:26px; margin:28px 0 4px; }
+  .updated { color:var(--muted); font-size:13px; margin-bottom:24px; }
+  h2 { font-size:17px; margin-top:28px; color:var(--accent); }
+  p, li { font-size:15px; }
+  ul { padding-left:20px; }
+  a { color:var(--accent); }
+  section { margin-top:40px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="brand"><span class="kanji">脈</span> Myaku</div>
+  <div class="lang"><a href="#en">English</a><a href="#ja">日本語</a></div>
+
+  <section id="en">
+  <h1>Privacy Policy</h1>
+  <div class="updated">Last updated: 30 September 2026</div>
+  <p>Myaku is an internal collaboration app for employees of companies that use it. It helps colleagues across departments find each other, join topic Rooms, form teams for company Challenges and earn Score for contributing. Myaku is developed by HowCow Inc. This page explains what data we process and why.</p>
+
+  <h2>Who can use Myaku</h2>
+  <p>Only employees whose work email belongs to a company connected to Myaku can create an account. Your profile and activity are visible only to colleagues inside your own company.</p>
+
+  <h2>Data we process</h2>
+  <ul>
+    <li><strong>Work email</strong>, to create your account, sign you in and connect you to your company.</li>
+    <li><strong>Profile</strong> that you enter yourself: name, photo, role, department, skills, interests, what you are working on, optional audio intro.</li>
+    <li><strong>Activity inside the app</strong>: connections, messages and attachments in chats, Rooms you join or create, Challenge teams you join.</li>
+    <li><strong>Score</strong>: points calculated from your activity in Myaku. Your company may use Score for internal recognition programs.</li>
+    <li><strong>Push token</strong> of your device, to notify you about messages and connections.</li>
+  </ul>
+  <p>Myaku does not use your location, does not track you across other apps or websites and does not show advertising.</p>
+
+  <h2>Who sees your data</h2>
+  <ul>
+    <li><strong>Colleagues in your company</strong> see your profile, the Rooms and teams you join and the leaderboard.</li>
+    <li><strong>Messages</strong> are visible only to the people in that conversation.</li>
+    <li><strong>Company administrators</strong> (for example HR) can see Score and handle reports of inappropriate behaviour.</li>
+    <li><strong>Service providers</strong>: data is stored with Supabase (database, authentication, file storage) and push notifications are delivered through Expo and Apple. They process data only to run the service.</li>
+  </ul>
+  <p>We do not sell personal data.</p>
+
+  <h2>Storage and security</h2>
+  <p>Data is encrypted in transit. Access is restricted at the database level so that each company's data is separated from every other company's data.</p>
+
+  <h2>Your rights</h2>
+  <p>You can edit your profile at any time and delete your account in Settings. Deleting your account removes your profile, messages and activity. To also erase photos and audio files you uploaded, write to us. You can also ask us for a copy of your data or for deletion by writing to <a href="mailto:support@howcow.tech">support@howcow.tech</a>. We handle requests in line with applicable law, including Japan's Act on the Protection of Personal Information (APPI).</p>
+
+  <h2>Contact</h2>
+  <p>HowCow Inc., 3600 Lime Street Suite 725, Riverside, CA, USA. Email: <a href="mailto:support@howcow.tech">support@howcow.tech</a></p>
+  </section>
+
+  <section id="ja" lang="ja">
+  <h1>プライバシーポリシー</h1>
+  <div class="updated">最終更新日：2026年9月30日</div>
+  <p>Myaku は、導入企業の社員のための社内コラボレーションアプリです。部署を越えて同僚とつながり、テーマ別の「部屋」に参加し、社内チャレンジのチームを組み、貢献に応じてスコアを獲得できます。Myaku は HowCow Inc. が開発しています。本ページでは、取り扱うデータとその目的を説明します。</p>
+
+  <h2>利用できる方</h2>
+  <p>Myaku に接続された企業のメールアドレスを持つ社員のみがアカウントを作成できます。プロフィールと活動は、同じ企業の同僚にのみ表示されます。</p>
+
+  <h2>取り扱うデータ</h2>
+  <ul>
+    <li><strong>会社のメールアドレス</strong>：アカウント作成、ログイン、所属企業との紐付けのため。</li>
+    <li><strong>プロフィール</strong>（ご自身で入力）：氏名、写真、役職、部署、スキル、興味、取り組み中のこと、任意の音声自己紹介。</li>
+    <li><strong>アプリ内の活動</strong>：つながり、チャットのメッセージと添付ファイル、参加・作成した部屋、参加したチャレンジのチーム。</li>
+    <li><strong>スコア</strong>：Myaku での活動から算出されるポイント。企業が社内表彰制度に利用する場合があります。</li>
+    <li><strong>プッシュ通知トークン</strong>：メッセージやつながりをお知らせするため。</li>
+  </ul>
+  <p>Myaku は位置情報を使用せず、他のアプリやウェブサイトをまたいだトラッキングや広告表示は行いません。</p>
+
+  <h2>データを閲覧できる者</h2>
+  <ul>
+    <li><strong>同じ企業の同僚</strong>：プロフィール、参加している部屋やチーム、ランキング。</li>
+    <li><strong>メッセージ</strong>：その会話の参加者のみ。</li>
+    <li><strong>企業の管理者</strong>（人事部など）：スコアの確認、不適切な行為の報告への対応。</li>
+    <li><strong>委託先</strong>：データは Supabase（データベース、認証、ファイル保存）に保存され、プッシュ通知は Expo および Apple を通じて配信されます。サービス運営の目的でのみ処理されます。</li>
+  </ul>
+  <p>個人データを販売することはありません。</p>
+
+  <h2>保存とセキュリティ</h2>
+  <p>通信は暗号化されています。データベースのアクセス制御により、各企業のデータは他の企業から分離されています。</p>
+
+  <h2>お客様の権利</h2>
+  <p>プロフィールはいつでも編集でき、設定画面からアカウントを削除できます。削除するとプロフィール、メッセージ、活動履歴が消去されます。アップロードした写真や音声ファイルの消去をご希望の場合はご連絡ください。データの開示や削除のご依頼は <a href="mailto:support@howcow.tech">support@howcow.tech</a> までご連絡ください。個人情報の保護に関する法律（個人情報保護法）を含む適用法令に従って対応します。</p>
+
+  <h2>お問い合わせ</h2>
+  <p>HowCow Inc.、3600 Lime Street Suite 725, Riverside, CA, USA。メール：<a href="mailto:support@howcow.tech">support@howcow.tech</a></p>
+  </section>
+</div>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Myaku Support</title>
+<style>
+  :root { --bg:#FAF9F7; --ink:#0B1C32; --muted:#6B7280; --accent:#E60012; --card:#FFFFFF; }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) { --bg:#080F1C; --ink:#F5F6F8; --muted:#9AA3AF; --accent:#FF3B30; --card:#111B2E; }
+  }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Hiragino Sans","Noto Sans JP",sans-serif;
+    line-height:1.65; padding:env(safe-area-inset-top,0) 16px env(safe-area-inset-bottom,0); }
+  .wrap { max-width:680px; margin:0 auto; padding:36px 0 64px; }
+  .brand { display:flex; align-items:center; gap:10px; font-weight:800; font-size:20px; letter-spacing:-0.3px; }
+  .brand .kanji { color:var(--accent); font-size:26px; }
+  .lang { display:flex; gap:8px; margin:18px 0 8px; }
+  .lang a { text-decoration:none; font-size:13px; font-weight:700; padding:6px 12px; border-radius:100px; background:var(--card); color:var(--ink); }
+  h1 { font-size:26px; margin:28px 0 4px; }
+  .updated { color:var(--muted); font-size:13px; margin-bottom:24px; }
+  h2 { font-size:17px; margin-top:28px; color:var(--accent); }
+  p, li { font-size:15px; }
+  ul { padding-left:20px; }
+  a { color:var(--accent); }
+  section { margin-top:40px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="brand"><span class="kanji">脈</span> Myaku</div>
+  <div class="lang"><a href="#en">English</a><a href="#ja">日本語</a></div>
+
+  <section id="en">
+  <h1>Support</h1>
+  <p>Questions or problems with Myaku? Write to <a href="mailto:support@howcow.tech">support@howcow.tech</a>. We usually reply within one business day.</p>
+
+  <h2>How do I join?</h2>
+  <p>Sign up with your work email. If your company is connected to Myaku, you join automatically. If the app says your domain is not on Myaku yet, ask your HR team or write to us.</p>
+
+  <h2>I did not get the confirmation email</h2>
+  <p>Check spam or quarantine folders. Corporate mail filters sometimes hold new senders. Ask IT to allow messages from Myaku, then sign up again.</p>
+
+  <h2>How is Score calculated?</h2>
+  <p>You earn points for completing your profile, connecting with colleagues, creating and joining Rooms and building Challenge teams. Your company decides how Score is used in its recognition program.</p>
+
+  <h2>How do I delete my account?</h2>
+  <p>Settings, then Delete account. Or write to <a href="mailto:support@howcow.tech">support@howcow.tech</a> and we will delete it for you.</p>
+
+  <h2>Privacy</h2>
+  <p>See our <a href="privacy.html">Privacy Policy</a>.</p>
+  </section>
+
+  <section id="ja" lang="ja">
+  <h1>サポート</h1>
+  <p>Myaku についてのご質問や不具合は <a href="mailto:support@howcow.tech">support@howcow.tech</a> までご連絡ください。通常1営業日以内に返信します。</p>
+
+  <h2>参加するには？</h2>
+  <p>会社のメールアドレスで登録してください。会社が Myaku に接続されていれば、自動的に参加できます。「このドメインはまだ登録されていません」と表示された場合は、人事部または当社までご連絡ください。</p>
+
+  <h2>確認メールが届きません</h2>
+  <p>迷惑メールや隔離フォルダをご確認ください。社内のメールフィルタが新しい送信元を保留することがあります。情報システム部門に Myaku からのメールの許可を依頼し、再度登録してください。</p>
+
+  <h2>スコアの計算方法は？</h2>
+  <p>プロフィールの完成、同僚とのつながり、部屋の作成・参加、チャレンジのチーム結成でポイントを獲得できます。スコアの社内表彰への活用方法は各企業が決定します。</p>
+
+  <h2>アカウントを削除するには？</h2>
+  <p>「設定」から「アカウントを削除」を選んでください。<a href="mailto:support@howcow.tech">support@howcow.tech</a> にご連絡いただければ、こちらで削除することもできます。</p>
+
+  <h2>プライバシー</h2>
+  <p><a href="privacy.html">プライバシーポリシー</a>をご覧ください。</p>
+  </section>
+</div>
+</body>
+</html>
